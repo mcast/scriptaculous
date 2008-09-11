@@ -665,7 +665,7 @@ Third line</div>
         '_ajax_inplaceeditor_result2.html', { okControl: false, cancelControl: false});
       Event.simulateMouse('newtbe', 'mouseover');
       Event.simulateMouse('newtbe', 'click');
-      Event.simulateKey('newtbe', 'keydown', { keyCode: Event.KEY_ESC });
+      Event.simulateKey(ipe._controls.editor, 'keydown', { keyCode: Event.KEY_ESC });
       assert(!ipe._editing, 'Esc should have disabled IPE');
       ipe.dispose();
       // Cancel control, Esc
@@ -673,7 +673,7 @@ Third line</div>
         '_ajax_inplaceeditor_result2.html', { okControl: false });
       Event.simulateMouse('newtbe', 'mouseover');
       Event.simulateMouse('newtbe', 'click');
-      Event.simulateKey('newtbe', 'keydown', { keyCode: Event.KEY_ESC });
+      Event.simulateKey(ipe._controls.editor, 'keydown', { keyCode: Event.KEY_ESC });
       assert(!ipe._editing, 'Esc should have disabled IPE');
       ipe.dispose();
       // OK control, Esc
@@ -681,7 +681,7 @@ Third line</div>
         '_ajax_inplaceeditor_result2.html', { cancelControl: false });
       Event.simulateMouse('newtbe', 'mouseover');
       Event.simulateMouse('newtbe', 'click');
-      Event.simulateKey('newtbe', 'keydown', { keyCode: Event.KEY_ESC });
+      Event.simulateKey(ipe._controls.editor, 'keydown', { keyCode: Event.KEY_ESC });
       assert(!ipe._editing, 'Esc should have disabled IPE');
       ipe.dispose();
       // Both controls, Esc
@@ -689,7 +689,7 @@ Third line</div>
         '_ajax_inplaceeditor_result2.html');
       Event.simulateMouse('newtbe', 'mouseover');
       Event.simulateMouse('newtbe', 'click');
-      Event.simulateKey('newtbe', 'keydown', { keyCode: Event.KEY_ESC });
+      Event.simulateKey(ipe._controls.editor, 'keydown', { keyCode: Event.KEY_ESC });
       assert(!ipe._editing, 'Esc should have disabled IPE');
       ipe.dispose();
       // No controls, Return
@@ -698,7 +698,7 @@ Third line</div>
         '_ajax_inplaceeditor_result2.html', { okControl: false, cancelControl: false });
       Event.simulateMouse('newtbe', 'mouseover');
       Event.simulateMouse('newtbe', 'click');
-      Event.simulateKey('newtbe', 'keydown', { keyCode: Event.KEY_RETURN });
+      Event.simulateKey(ipe._controls.editor, 'keydown', { keyCode: Event.KEY_RETURN });
       wait(1000, function() {
         assertEqual('New to be edited - edited', $('newtbe').innerHTML.strip());
         ipe.dispose();
@@ -708,7 +708,7 @@ Third line</div>
           '_ajax_inplaceeditor_result2.html', { okControl: false });
         Event.simulateMouse('newtbe', 'mouseover');
         Event.simulateMouse('newtbe', 'click');
-        Event.simulateKey('newtbe', 'keydown', { keyCode: Event.KEY_RETURN });
+        Event.simulateKey(ipe._controls.editor, 'keydown', { keyCode: Event.KEY_RETURN });
         wait(1000, function() {
           assertEqual('New to be edited - edited', $('newtbe').innerHTML.strip());
           ipe.dispose();
@@ -718,7 +718,7 @@ Third line</div>
             '_ajax_inplaceeditor_result2.html', { cancelControl: false });
           Event.simulateMouse('newtbe', 'mouseover');
           Event.simulateMouse('newtbe', 'click');
-          Event.simulateKey('newtbe', 'keydown', { keyCode: Event.KEY_RETURN });
+          Event.simulateKey(ipe._controls.editor, 'keydown', { keyCode: Event.KEY_RETURN });
           wait(1000, function() {
             assertEqual('New to be edited - edited', $('newtbe').innerHTML.strip());
             ipe.dispose();
@@ -728,7 +728,7 @@ Third line</div>
               '_ajax_inplaceeditor_result2.html');
             Event.simulateMouse('newtbe', 'mouseover');
             Event.simulateMouse('newtbe', 'click');
-            Event.simulateKey('newtbe', 'keydown', { keyCode: Event.KEY_RETURN });
+            Event.simulateKey(ipe._controls.editor, 'keydown', { keyCode: Event.KEY_RETURN });
             wait(1000, function() {
               assertEqual('New to be edited - edited', $('newtbe').innerHTML.strip());
               ipe.dispose();

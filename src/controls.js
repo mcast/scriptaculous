@@ -500,6 +500,7 @@ Ajax.InPlaceEditor = Class.create({
     this._boundFailureHandler = this.handleAJAXFailure.bind(this);
     this._boundSubmitHandler = this.handleFormSubmission.bind(this);
     this._boundWrapperHandler = this.wrapUp.bind(this);
+    this._boundCheckForEscapeOrReturn = this.checkForEscapeOrReturn.bind(this);
     this.registerListeners();
   },
   checkForEscapeOrReturn: function(e) {
@@ -553,6 +554,7 @@ Ajax.InPlaceEditor = Class.create({
       fld.onblur = this._boundSubmitHandler;
     if (!this.options.submitOnBlur && this.options.cancelOnBlur)
       fld.onblur = this._boundCancelHandler;
+    fld.onkeydown = this._boundCheckForEscapeOrReturn;
     this._controls.editor = fld;
     if (this.options.loadTextURL)
       this.loadExternalText();
