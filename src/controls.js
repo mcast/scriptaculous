@@ -551,6 +551,8 @@ Ajax.InPlaceEditor = Class.create({
     fld.className = 'editor_field';
     if (this.options.submitOnBlur)
       fld.onblur = this._boundSubmitHandler;
+    if (!this.options.submitOnBlur && this.options.cancelOnBlur)
+      fld.onblur = this._boundCancelHandler;
     this._controls.editor = fld;
     if (this.options.loadTextURL)
       this.loadExternalText();
@@ -898,6 +900,7 @@ Object.extend(Ajax.InPlaceEditor, {
     size: 0,
     stripLoadedTextTags: false,
     submitOnBlur: false,
+    cancelOnBlur: false,
     textAfterControls: '',
     textBeforeControls: '',
     textBetweenControls: ''

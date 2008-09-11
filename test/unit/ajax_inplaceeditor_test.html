@@ -633,6 +633,32 @@ Third line</div>
       });
     }},
 
+    testCancelOnBlur: function() {with(this) {
+      // cancelOnBlur default (false)
+      $('newtbe').update('To be edited');
+      var ipe = new Ajax.InPlaceEditor('newtbe',
+        '_ajax_inplaceeditor_result2.html');
+      Event.simulateMouse('newtbe', 'mouseover');
+      Event.simulateMouse('newtbe', 'click');
+      ipe._controls.editor.blur();
+      wait(1000, function() {
+        assertNotVisible($('newtbe'));
+        assertEqual('To be edited', ipe._controls.editor ?  ipe._controls.editor.value : '');
+        ipe.dispose();
+        // cancelOnBlur == true
+        ipe = new Ajax.InPlaceEditor('newtbe',
+          '_ajax_inplaceeditor_result2.html', { cancelOnBlur: true });
+        Event.simulateMouse('newtbe', 'mouseover');
+        Event.simulateMouse('newtbe', 'click');
+        ipe._controls.editor.blur();
+        wait(1200, function() {
+          assertEqual(0, $H(ipe._controls).size());
+          assertVisible($('newtbe'));
+          ipe.dispose();
+        });
+      });
+    }},
+
     testEscReturnKeys: function() {with(this) {
       // No controls, Esc
       var ipe = new Ajax.InPlaceEditor('newtbe',
