@@ -164,6 +164,27 @@
       assert(called, "callback was not called");
     }},
 
+    testOriginalValueAvailable: function() { with(this) {
+      seen = {}; // results go here
+      var ipe = inPlaceEditor;
+      $('tobeedited').update('Old text &amp; before edit'); // start with known text (htmlified here)
+      ipe.options.callback = function(form, newval, thirdarg) {
+	  seen['new'] = newval;
+	  seen['old'] = ipe.originalValue();
+	  seen['thirdarg'] = thirdarg;
+        };
+      assertEqual("Old text & before edit", ipe.originalValue(), 'Original text before click');
+      Event.simulateMouse('tobeedited', 'click');
+      ipe.editField.value = "Text & typed in" // set <input type=text> contents
+      Event.simulateMouse(document.forms[0].childNodes[1],'click');
+      wait(200, function() {
+        assertEqual("Text & typed in", seen['new'], 'New text for server');
+        assertEqual("Old text & before edit", seen['old'], 'Original text');
+        assertEqual("Server received: To be edited", $('tobeedited').innerHTML, 'Text from server');
+        assertNull(seen['thirdarg'], 'There is no third arg, yet'); // maybe pass original value or ipe?
+      });
+    }},
+
     testCanUseExternalElementToGoIntoEditMode: function() { with(this) {
       Event.simulateMouse('tobeeditedEditControl','click');
       assertNotNull(document.forms[0], "external control didn't work");
