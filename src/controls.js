@@ -715,6 +715,11 @@ Ajax.InPlaceEditor.prototype = {
     this.element.style.backgroundColor = this.originalBackground;
     Element.show(this.element);
   },
+  originalValue: function() {
+    // make available the (HTMLified) value-before-edit
+    // during "callback" and before.
+    return this.oldInnerHTML || this.element.innerHTML;
+  },
   removeForm: function() {
     if(this.form) {
       if (this.form.parentNode) Element.remove(this.form);
