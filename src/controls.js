@@ -716,9 +716,9 @@ Ajax.InPlaceEditor.prototype = {
     Element.show(this.element);
   },
   originalValue: function() {
-    // make available the (HTMLified) value-before-edit
+    // return deHTMLified value-before-edit, available
     // during "callback" and before.
-    return this.oldInnerHTML || this.element.innerHTML;
+    return (this.oldInnerHTML || this.element.innerHTML).unescapeHTML();
   },
   removeForm: function() {
     if(this.form) {
