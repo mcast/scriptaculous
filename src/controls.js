@@ -726,6 +726,11 @@ Ajax.InPlaceEditor = Class.create({
     this.element.style.backgroundColor = this._originalBackground;
     this.element.show();
   },
+  originalValue: function() {
+    // return deHTMLified value-before-edit, available
+    // during "callback" and before.
+    return (this._oldInnerHTML || this.element.innerHTML).unescapeHTML();
+  },
   triggerCallback: function(cbName, arg) {
     if ('function' == typeof this.options[cbName]) {
       this.options[cbName](this, arg);

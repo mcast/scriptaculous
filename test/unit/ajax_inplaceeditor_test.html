@@ -374,6 +374,30 @@ Third line</div>
       });
     }},
 
+    testOriginalValueAvailable: function() { with(this) {
+      var seen = {}; // results go here
+      $('newtbe').update('Old text &amp; before edit'); // start with known text (htmlified here)
+      var ipe = new Ajax.InPlaceEditor('newtbe', '_ajax_inplaceeditor_result2.html', {
+        callback: function(form, newval, thirdarg) {
+	  seen['new'] = newval;
+	  seen['old'] = ipe.originalValue();
+	  seen['thirdarg'] = thirdarg;
+          return 'foo=bar';
+        }
+      });
+      assertEqual("Old text & before edit", ipe.originalValue(), 'Original text before click');
+      Event.simulateMouse('newtbe', 'click');
+      ipe._controls.editor.value = "Text & typed in" // set <input type=text> contents
+      Event.simulateKey('newtbe', 'keydown', { keyCode: Event.KEY_RETURN });
+      wait(200, function() {
+        assertEqual("Text & typed in", seen['new'], 'New text for server');
+        assertEqual("Old text & before edit", seen['old'], 'Original text');
+        assertEqual("New to be edited - edited\n", $('newtbe').innerHTML, 'Text from server');
+        assertNull(seen['thirdarg'], 'There is no third arg, yet'); // maybe pass original value or ipe?
+        ipe.dispose();
+      });
+    }},
+
     testCallbackFunctionReturnTypes: function() { with(this) {
       var params = [];
       var responder = {
