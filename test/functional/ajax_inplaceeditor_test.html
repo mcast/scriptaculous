@@ -19,10 +19,15 @@
 
 <h1 id="tobeedited">To be edited</h1>
 <script>
+$('tobeedited').widg =
 new Ajax.InPlaceEditor($('tobeedited'), '_ajax_inplaceeditor_result.html', {
         ajaxOptions: {method: 'get'} //override so we can use a static for the result
         });
 </script>
+<p>
+  originalValue: <b id="tbe_orig">(displayed here by button)</b>
+  <button onClick="$('tbe_orig').innerHTML = $('tobeedited').widg.originalValue().escapeHTML()"> Update </button>
+</p>
 
 <h1 id="tobeeditedblur">To be edited w/ blur</h1>
 <script>
